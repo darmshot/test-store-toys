@@ -1,0 +1,55 @@
+.media-test {
+  text-align: center;
+  &:before {
+    display: block;
+    content: 'XXL';
+    padding: 10px;
+    font-weight: 600;
+    background: darkviolet;
+    color: white;
+  }
+
+  //@include media(xl) {
+  //  &:before {
+  //    content: 'XL';
+  //    background: blue;
+  //    color: white;
+  //  }
+  //}
+  @include media(xxl) {
+    &:before {
+      content: 'XXL';
+      background: skyblue;
+      color: black;
+    }
+  }
+  @include media(xl) {
+    &:before {
+      content: 'XL';
+      background: green;
+      color: white;
+    }
+  }
+  @include media(lg) {
+    &:before {
+      content: 'LG';
+      background: yellow;
+      color: red;
+    }
+  }
+  @include media(md) {
+    &:before {
+      content: 'MD';
+      background: orange;
+      color: white;
+    }
+  }
+  @include media(sm) {
+    &:before {
+      content: 'SM';
+      background: red;
+      color: white;
+    }
+  }
+}
+
