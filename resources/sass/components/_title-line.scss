@@ -1,0 +1,19 @@
+
+.title-line {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    color: $green;
+    margin-bottom: 20px;
+    font-weight: 300;
+    &__line {
+        flex-grow: 1;
+        content: '';
+        border: 1px solid $gray-200;
+        border-right: 0;
+        border-left: 0;
+        display: block;
+        height: 3px;
+        margin-left: 10px;
+    }
+}

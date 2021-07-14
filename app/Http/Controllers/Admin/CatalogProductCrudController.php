@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\CatalogProductRequest;
-use App\Models\CatalogProduct;
+use App\Models\Admin\CatalogAttribute;
+use App\Models\Admin\CatalogProduct;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * Class ProductCrudController
@@ -25,6 +28,8 @@ class CatalogProductCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
         update as traitUpdate;
     }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -32,7 +37,7 @@ class CatalogProductCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\CatalogProduct::class);
+        CRUD::setModel(\App\Models\Admin\CatalogProduct::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/catalog/products');
         CRUD::setEntityNameStrings('Товар', 'Товары');
     }
@@ -45,8 +50,57 @@ class CatalogProductCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+//        CRUD::column('thumb')->type('image');
 
+        // image
+        CRUD::addColumn([
+            'label' => "Изображение",
+            'name' => "thumb",
+            'type' => 'image',
+            'visibleInTable' => true,
+            'visibleInModal' => false,
+//'fake' =>true
+            'entity'         => false, // the method that defines the relationship in your Model
+
+//            'crop' => true, // set to true to allow cropping, false to disable
+//            'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
+            // 'disk'      => 's3_bucket', // in case you need to show images from a different disk
+            // 'prefix'    => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+        ]);
+
+        CRUD::addColumn([
+            'name'           => 'title',
+            'type'           => 'text',
+            'label'          => 'Заголовок',
+            'visibleInTable' => true,
+            'visibleInModal' => true,
+        ]);
+
+        CRUD::addColumn([
+            'name'           => 'description',
+            'type'           => 'text',
+            'label'          => 'Описание',
+            'visibleInTable' => true,
+            'visibleInModal' => true,
+        ]);
+
+        CRUD::addColumn([
+            'name'           => 'price',
+            'type'           => 'number',
+            'label'          => 'Цена',
+            'visibleInTable' => true,
+            'visibleInModal' => true,
+        ]);
+        CRUD::addColumn([
+            // 1-n relationship
+            'label'          => 'Категория', // Table column heading
+            'type'           => 'select',
+//            'name'           => 'fake_main_category', // the column that contains the ID of that connected entity;
+            'entity'         => 'categories', // the method that defines the relationship in your Model
+            'attribute'      => 'title', // foreign key attribute that is shown to user
+            'visibleInTable' => true,
+            'visibleInModal' => false,
+        ]);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -64,15 +118,22 @@ class CatalogProductCrudController extends CrudController
     {
         CRUD::setValidation(CatalogProductRequest::class);
 
-//        CRUD::setFromDb(); // fields
-
-
         CRUD::addField([
             'name'  => 'title',
             'type'  => 'text',
             'label' => 'Заголовок',
             'tab'   => 'Описание'
         ]);
+
+//        CRUD::addField([
+//            'name'  => 'json_attributes',
+//            'type'  => 'text',
+////            'fake' => true,
+////            'store_in' => 'json_attributes',
+//            'label' => 'JsonAttributes',
+//            'tab'   => 'Описание'
+//        ]);
+
 
         CRUD::addField([
             'name'  => 'description',
@@ -89,10 +150,31 @@ class CatalogProductCrudController extends CrudController
         ]);
 
         CRUD::addField([
+            'name'  => 'sku',
+            'type'  => 'text',
+            'label' => 'Sku',
+            'tab'   => 'Данные'
+        ]);
+
+        CRUD::addField([
+            'name'  => 'price',
+            'type'  => 'text',
+            'label' => 'Цена',
+            'tab'   => 'Данные'
+        ]);
+
+        CRUD::addField([
+            'name'  => 'price_special',
+            'type'  => 'text',
+            'label' => 'Скидка',
+            'tab'   => 'Данные'
+        ]);
+
+        CRUD::addField([
             'name'  => 'slug',
             'type'  => 'text',
             'label' => 'Ярлык (URL)',
-            'hint' =>  'ярлык будет автоматический сгенерирован из заголовка, если оставить пустым.',
+            'hint'  => 'ярлык будет автоматический сгенерирован из заголовка, если оставить пустым.',
             'tab'   => 'SEO'
         ]);
 
@@ -121,32 +203,39 @@ class CatalogProductCrudController extends CrudController
             'label'     => 'Категории', // Table column heading
             'type'      => 'select2_multiple',
             'attribute' => 'title', // foreign key attribute that is shown to user
-            'name'      => 'categories', // the method that defines the relationship in your Model
-            'fake'      => true,
-            'pivot'     => true,
-            'entity'    => 'categories', // the method that defines the relationship in your Model
-            'model'     => 'App\Models\CatalogCategory', // foreign key model
+            'name'      => 'fake_categories', // the method that defines the relationship in your Model
+//            'pivot'     => true,
+//            'fake' => true,
+//            'entity'    => 'categories', // the method that defines the relationship in your Model
+//            'entity'    =>     'getCategories', // the method that defines the relationship in your Model
+            'model'     => 'App\Models\Admin\CatalogCategory', // foreign key model
             'options'   => (function ($query) {
-                return $query->orderBy('title', 'ASC')->get();
+                return $query->orderBy('lft', 'ASC')->get()->map(function ($row) {
+                    $row->title = (($row->depth > 1) ? str_repeat('-', $row->depth - 1) : '') . ' ' . $row->title;
+
+                    return $row;
+                });
             }),
             'tab'       => 'Связи',
         ]);
-
 
         CRUD::addField([
             'label'     => 'Главная категория', // Table column heading
             'type'      => 'select2',
             'attribute' => 'title', // foreign key attribute that is shown to user
-            'name'      => 'main_category', // the method that defines the relationship in your Model
-            'pivot'     => true,
-            'entity'    => 'categories', // the method that defines the relationship in your Model
-            'model'     => 'App\Models\CatalogCategory', // foreign key model
+            'name'      => 'fake_main_category', // the method that defines the relationship in your Model
+//            'pivot'     => true,
+//            'entity'    => 'getCategories', // the method that defines the relationship in your Model
+            'model'     => 'App\Models\Admin\CatalogCategory', // foreign key model
             'options'   => (function ($query) {
-                return $query->orderBy('title', 'ASC')->get();
+                return $query->orderBy('lft', 'ASC')->get()->map(function ($row) {
+                    $row->title = (($row->depth > 1) ? str_repeat('-', $row->depth - 1) : '') . ' ' . $row->title;
+
+                    return $row;
+                });
             }),
             'tab'       => 'Связи',
         ]);
-
 
         CRUD::addField([
             'label'     => 'Производитель', // Table column heading
@@ -155,24 +244,107 @@ class CatalogProductCrudController extends CrudController
             'name'      => 'manufacturer_id', // the method that defines the relationship in your Model
 //            'pivot'     => true,
             'entity'    => 'manufacturer', // the method that defines the relationship in your Model
-            'model'     => 'App\Models\CatalogManufacturer', // foreign key model
+            'model'     => 'App\Models\Admin\CatalogManufacturer', // foreign key model
             'options'   => (function ($query) {
                 return $query->orderBy('title', 'ASC')->get();
             }),
             'tab'       => 'Связи',
         ]);
 
+        CRUD::addField([   // n-n relationship
+            'label'                => "Похожие товары",
+            // Table column heading
+            'type'                 => "relationship",
+            'name'                 => 'relatedProducts',
+            // a unique identifier (usually the method that defines the relationship in your Model)
+            'entity'               => 'relatedProducts',
+            // the method that defines the relationship in your Model
+            'attribute'            => "title",
+            // foreign key attribute that is shown to user
+            'data_source'          => url("admin/api/catalog/products"),
+            // url to controller search function (with /{id} should return model)
+            'pivot'                => true,
+            // on create&update, do you need to add/delete pivot table entries?
 
-//        CRUD::addField([   // CustomHTML
-//            'name' => 'metas_separator',
-//            'type' => 'custom_html',
-//            'value' => '<br><h2>'.trans('backpack::pagemanager.metas').'</h2><hr>',
-//        ]);
+            // OPTIONAL
+            'delay'                => 500,
+            // the minimum amount of time between ajax requests when searching in the field
+            'model'                => "App\Models\CatalogProduct",
+            // foreign key model
+            'placeholder'          => "Выберите товары",
+            // placeholder for the select
+            'minimum_input_length' => 1,
+            // minimum characters to type before querying results
+            // 'include_all_form_fields'  => false, // optional - only send the current field through AJAX (for a smaller payload if you're not using multiple chained select2s)
+            'tab'                  => 'Связи',
+
+        ]);
+
+        CRUD::addField([   // CustomHTML
+            'name'  => 'attributes_separator',
+            'type'  => 'custom_html',
+            'value' => '<br><h2>Аттрибуты</h2><hr class="mb-n3">',
+            'tab'   => 'Связи'
+        ]);
+
+        CRUD::addField([   // repeatable
+            'name'           => 'fake_product_attributes',
+            'label'          => '',
+            'type'           => 'repeatable',
+            'fields'         => [
+                [
+                    'name'                    => 'id',
+                    'type'                    => 'select2_from_ajax',
+                    'label'                   => 'Атрибут',
+//                    'entity'               => 'json_attributes',
+                    'attribute'               => "title",
+                    'data_source'             => url("admin/api/catalog/products/attributes"),
+                    'placeholder'             => "Выберетие атрибут", // placeholder for the select
+                    'minimum_input_length'    => 1, // minimum characters to type before querying results
+                    'model'                   => "App\Models\Admin\CatalogAttribute", // foreign key model
+                    'method'                  => 'POST', // optional - HTTP method to use for the AJAX call (GET, POST)
+                    'wrapper'                 => ['class' => 'form-group col-md-6'],
+                    'include_all_form_fields' => true
+                ],
+                [
+                    'name'    => 'value',
+                    'type'    => 'text',
+                    'label'   => 'Значение',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                ]
+            ],
+
+            // optional
+            'new_item_label' => 'Add Attribute', // customize the text of the button
+            'init_rows'      => 0, // number of empty rows to be initialized, by default 1
+            'min_rows'       => 0, // minimum rows allowed, when reached the "delete" buttons will be hidden
+            'max_rows'       => 20, // maximum rows allowed, when reached the "new item" button will be hidden
+            'tab'            => 'Связи',
+        ]);
+
+        CRUD::addField([   // Browse multiple
+            'name'       => 'images',
+            'label'      => 'Изображения',
+            'type'       => 'browse_multiple',
+            // 'multiple'   => true, // enable/disable the multiple selection functionality
+            'sortable'   => true, // enable/disable the reordering with drag&drop
+            'mime_types' => ['image'], // visible mime prefixes; ex. ['image'] or ['application/pdf']
+            'tab'        => 'Данные',
+
+        ]);
+
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         *
+         *   CRUD::addField([   // CustomHTML
+         * 'name' => 'metas_separator',
+         * 'type' => 'custom_html',
+         * 'value' => '<br><h2>'.trans('backpack::pagemanager.metas').'</h2><hr>',
+         * ]);
          */
     }
 
@@ -185,106 +357,5 @@ class CatalogProductCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
-
-    public function store()
-    {
-        // do something before validation, before save, before everything; for example:
-        // $this->crud->addField(['type' => 'hidden', 'name' => 'author_id']);
-//         $this->crud->removeField('attributes');
-
-
-        // Note: By default Backpack ONLY saves the inputs that were added on page using Backpack fields.
-        // This is done by stripping the request of all inputs that do NOT match Backpack fields for this
-        // particular operation. This is an added security layer, to protect your database from malicious
-        // users who could theoretically add inputs using DeveloperTools or JavaScript. If you're not properly
-        // using $guarded or $fillable on your model, malicious inputs could get you into trouble.
-
-        // However, if you know you have proper $guarded or $fillable on your model, and you want to manipulate
-        // the request directly to add or remove request parameters, you can also do that.
-        // We have a config value you can set, either inside your operation in `config/backpack/crud.php` if
-        // you want it to apply to all CRUDs, or inside a particular CrudController:
-        // $this->crud->setOperationSetting('saveAllInputsExcept', ['_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
-        // The above will make Backpack store all inputs EXCEPT for the ones it uses for various features.
-        // So you can manipulate the request and add any request variable you'd like.
-        // $this->crud->getRequest()->request->add(['author_id'=> backpack_user()->id]);
-        // $this->crud->getRequest()->request->remove('password_confirmation');
-
-//        $this->crud->getRequest()->request->remove('attributes');
-        $this->saveCategories();
-
-
-        $response = $this->traitStore();
-
-        // do something after save
-//        $this->saveAttributes();
-
-
-        return $response;
-    }
-
-    public function update()
-    {
-//        $this->saveAttributes();
-        $this->saveCategories();
-
-        $response = $this->traitUpdate();
-
-        return $response;
-    }
-
-    public function saveAttributes()
-    {
-        $jsonAttributes = $this->crud->getRequest()->request->get('json_attributes');
-
-        if ( ! empty($jsonAttributes)) {
-            $attributes = collect(json_decode($jsonAttributes, true))->mapWithKeys(function ($item) {
-                if (empty($item['id']) || empty($item['value'])) {
-                    return [];
-                }
-
-                return [$item['id'] => ['value' => $item['value']]];
-            })->filter()->all();
-
-            CatalogProduct::find($this->crud->getRequest()->request->get('id'))->offerAttributes()->sync($attributes);
-        }
-
-        $this->crud->getRequest()->request->remove('json_attributes');
-    }
-
-    public function saveCategories()
-    {
-        $categories   = $this->crud->getRequest()->request->get('categories');
-        $mainCategory = $this->crud->getRequest()->request->get('main_category');
-
-
-        if ( ! empty($categories) || ! empty($mainCategory)) {
-
-
-            $syncCategories = collect($categories)->push($mainCategory)
-                                                  ->unique()
-                                                  ->mapWithKeys(function ($item) use ($mainCategory) {
-                                                      $isMainCategory = ($item === $mainCategory) ? true : null;
-
-                                                      $result = [$item => ['main_category' => $isMainCategory]];
-
-                                                      return $result;
-                                                  })->all();
-//
-            $queryCategories = CatalogProduct::find($this->crud->getRequest()->request->get('id'))
-                                           ->categories();
-
-            $queryCategories->detach();
-            $queryCategories->attach($syncCategories);
-
-
-
-        }
-
-        $this->crud->removeField('categories');
-        $this->crud->removeField('main_category');
-
-        $this->crud->getRequest()->request->remove('categories');
-        $this->crud->getRequest()->request->remove('main_category');
     }
 }

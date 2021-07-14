@@ -1,0 +1,53 @@
+.choose-age {
+    $root: &;
+
+    &__button {
+        display: block;
+        background: $gray-100;
+        border-radius: 30px;
+        text-align: center;
+        color: $gray-800;
+        text-decoration: none;
+        font-size: 26px;
+        line-height: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+
+        &:hover {
+            background: darken($gray-100, 5%);
+            color: darken($gray-800, 5%);
+        }
+    }
+
+    &__col {
+        @for $i from 1 through 6 {
+            &:nth-child(#{$i}) {
+                $width: 22px + $i*2;
+
+                #{$root}__svg {
+                    width: $width;
+                }
+            }
+        }
+    }
+
+    &__age {
+        margin-right: 10px;
+    }
+
+    &__unit {
+        color: $gray-500;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    &__svg {
+        margin-right: 10px;
+
+        path {
+            fill: $green;
+        }
+    }
+
+
+}

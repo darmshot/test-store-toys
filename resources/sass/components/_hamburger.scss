@@ -1,0 +1,125 @@
+.hamburger {
+    width: 130px;
+    height: 90px;
+    overflow: hidden;
+
+    &__block {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $orange;
+        z-index: 100;
+        width: 90px;
+        height: 100%;
+        &:after {
+            position: absolute;
+            height: 285px;
+            width: 285px;
+            content: "";
+            background: $orange;
+            z-index: -1;
+            top: -128px;
+            left: -159px;
+            border-radius: 50%;
+        }
+    }
+
+    &__button {
+        border: none;
+        padding: 0 0;
+        background: 0 0;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin-left: 25px;
+        transition: transform .5s;
+
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            display: block;
+            width: 46px;
+            height: 4px;
+            background-color: #fff;
+            transition: background .5s;
+            border-radius: 2px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: -6px;
+                left: 0;
+                transform: translateY(-6px);
+                display: block;
+                width: 46px;
+                height: 4px;
+                background-color: #fff;
+                border-radius: 2px;
+                transition: transform .5s;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                display: block;
+                width: 46px;
+                height: 4px;
+                background-color: #fff;
+                border-radius: 2px;
+                transition: transform .5s;
+
+                top: 6px;
+                transform: translateY(6px);
+            }
+        }
+    }
+
+    svg {
+        width: 30px;
+        height: 30px;
+
+        path {
+            fill: white;
+        }
+    }
+
+    @include media(lg) {
+        height: 70px;
+    }
+
+    @include media(sm) {
+        $width-row: 40px;
+        height: 55px;
+        width: 80px;
+
+        &__block {
+            width: 60px;
+            &:after {
+                left: -215px;
+
+            }
+        }
+        &__button {
+            margin-left: 0;
+
+        }
+
+        span {
+            width: $width-row;
+
+            &:before {
+                width: $width-row;
+
+            }
+
+            &:after {
+                width: $width-row;
+
+            }
+        }
+    }
+}

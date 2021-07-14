@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\MenuItem;
+use App\Models\Admin\MenuItem;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\PageManager\app\Models\Page;
 

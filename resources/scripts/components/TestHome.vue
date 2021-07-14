@@ -7,6 +7,7 @@
 import {mapState} from "vuex";
 
 export default {
+    name:"TestHome",
     computed:{
         ...mapState('common',[
             'storeName'

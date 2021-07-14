@@ -1,10 +1,389 @@
-@import "functions";
+@import "bootstrap";
+
 @import "components/media-test";
+@import "components/choose-age";
+@import "components/title-line";
+@import "components/top-categories";
+@import "components/categories-board";
+@import "components/product-thumb-default";
+@import "components/main-slider";
+@import "components/header";
+@import "components/footer";
+@import "components/cart-dropdown";
+@import "components/hamburger";
+@import "components/header-phone";
+@import "components/header-search-btn";
+@import "components/categories-list";
+@import "components/ELEMENT-PLUS-COMPONENTS";
+@import "components/CATALOG-CATEGORY";
+@import "components/CATALOG-PRODUCT";
+
+//- Common
+// ==================================================
+[v-cloak] > * {
+    display: none!important;
+}
+
+.space {
+    &-10 {
+        margin-bottom: 70px;
+    }
+}
+
 body {
+    padding-top: 90px;
+    @include media(lg) {
+        padding-top: 70px;
+    }
+    @include media(sm) {
+        padding-top: 55px;
+    }
+}
+
+
+a {
+    &:hover {
+        transition: .3s;
+        cursor: pointer;
+    }
+}
+
+.content {
+    min-height: 600px;
+    padding-bottom: 90px;
+
+    &--pt {
+        padding-top: 30px;
+    }
+}
+
+
+.page-title {
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+// ==================================================
+
+
+//- Other elements
+// ==================================================
+
+.price {
+    color: $black;
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+
+    &--xl {
+        font-size: 40px;
+    }
+
+    &--old {
+        text-decoration: line-through;
+        font-weight: 400;
+    }
+
+    &--special {
+        color: $red;
+    }
+}
+
+.price-percent {
+    font-size: 12px;
+    background: $red;
+    border-radius: 5px;
+    color: white;
+    padding: 1px 2px;
+    margin: 0 5px;
+}
+
+.status {
+    $root: &;
+    font-size: 11px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+
+    &--warning {
+        color: $yellow;
+
+        #{$root}__dot {
+            background: $yellow;
+        }
+    }
+
+    &--success {
+        color: $green;
+    }
+
+    &__dot {
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        margin-right: 5px;
+        border-radius: 30px;
+    }
+}
+
+
+.catalog-product-nav {
+    text-align: right;
+
+    .el-form .el-form-item:last-child {
+        margin-right: 0;
+    }
+
+    &__show {
+        width: 85px;
+    }
+
+    .el-button {
+        border-color: transparent !important;
+    }
+
+    .el-input__inner {
+        border-color: transparent !important;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    .el-form-item__label {
+        text-transform: uppercase;
+        font-size: 12px;
+    }
 
 }
 
-// If you want to use the .scss style file, you need to import the base.scss file
-// @import 'element-plus/packages/theme-chalk/src/base.scss'
 
-//@import "./var.scss";
+.list-underline {
+    li {
+        display: flex;
+        padding: 5px 0;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        border-bottom: 1px solid $gray-300;
+    }
+
+    &__label {
+        color: $gray-800;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    &__value {
+        text-align: right;
+    }
+}
+
+body {
+    .lg-backdrop {
+        z-index: 2040;
+        background: white;
+    }
+
+    .lg-outer {
+        z-index: 2050;
+    }
+
+    .lg-toolbar {
+        //background-color: rgba(0, 0, 0, 0.80);
+        background-color: $gray-200;
+
+    }
+    .lg-toolbar .lg-icon:hover {
+        color:$black;
+
+    }
+    .lg-outer .lg-thumb-outer {
+        background-color: $gray-200;
+    }
+
+    .lg-outer .lg-toggle-thumb {
+        background-color: $gray-200;
+        color: $gray-800;
+        &:hover {
+            color:$black;
+        }
+    }
+
+    .lg-actions .lg-next:hover, .lg-actions .lg-prev:hover {
+        color: $gray-700;
+    }
+
+}
+
+
+
+
+.order-history {
+    hr {
+        border-color: $gray-200;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    //background: white;
+
+}
+
+.order-history-products {
+    a {
+        text-decoration: underline;
+    }
+}
+
+.order-history-item {
+    border: 1px solid $gray-200;
+    border-radius: $border-radius;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    &__header {
+        margin-bottom: 26px;
+    }
+
+    &__title {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 16px;
+        color: $gray-900;
+        margin-right: 20px;
+        text-transform: uppercase;
+    }
+
+    &__date {
+        color: $gray-300;
+        display: inline-block;
+    }
+
+    &__status {
+        float: right;
+        color: $success;
+    }
+
+    &__total {
+        float: right;
+    }
+
+    &__footer {
+        font-size: 14px;
+
+        &-title {
+            color: $gray-400;
+        }
+    }
+}
+
+.order-history-product {
+    display: flex;
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid transparent;
+
+    &:not(:last-child) {
+        padding-bottom: 26px;
+        border-color: $gray-200;
+    }
+
+    > div {
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    &__image {
+        flex: 0 0 110px;
+        width: 110px;
+
+    }
+
+    &__title {
+        flex: 0 0 250px;
+        width: 250px;
+        font-size: 14px;
+
+        &-caption {
+            font-size: 13px;
+            color: $gray-300;
+            display: none;
+        }
+    }
+
+    &__model {
+        flex: 1 0 0;
+        text-align: center;
+        color: $gray-300;
+    }
+
+    &__price {
+        flex: 1 0 0;
+        text-align: right;
+    }
+
+    &__total {
+        flex: 1 0 0;
+        text-align: right;
+    }
+
+    @include media(lg) {
+        flex-wrap: wrap;
+        &__title {
+            flex: 0 0 500px;
+            width: 500px;
+
+            &-caption {
+                display: block;
+            }
+        }
+
+        &__model {
+            display: none;
+        }
+
+        &__price {
+            margin-left: auto;
+            flex: 0 0 33.3333333333%;
+            width: 33.3333333333%;
+            text-align: right;
+        }
+
+        &__total {
+            flex: 0 0 33.3333333333%;
+            width: 33.3333333333%;
+            text-align: right;
+        }
+    }
+
+    @include media(md) {
+        &__title {
+            flex: 1 0 0;
+            min-width: 60%;
+        }
+
+        &__price {
+            margin-left: auto;
+            flex: 0 0 50%;
+            width: 50%;
+            text-align: right;
+        }
+
+        &__total {
+            flex: 0 0 50%;
+            width: 50%;
+            text-align: right;
+        }
+    }
+    @include media(sm) {
+        margin-bottom: 16px;
+
+        &:not(:last-child) {
+            padding-bottom: 16px;
+        }
+    }
+}
+
+// ==================================================

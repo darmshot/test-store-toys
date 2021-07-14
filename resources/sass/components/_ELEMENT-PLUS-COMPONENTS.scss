@@ -1,0 +1,135 @@
+.el-rate {
+    & &__icon {
+        margin-right: 1px;
+        font-size: 14px;
+        color: $green !important;
+    }
+}
+
+.el-collapse-item {
+    $root: &;
+
+    &--category-top {
+        #{$root}__header {
+            font-weight: 600;
+            color: $orange;
+            font-size: 16px;
+        }
+
+
+        #{$root}__content {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.el-breadcrumb {
+    $root: &;
+
+    &--page {
+        margin-bottom: 10px;
+
+        #{$root}__separator {
+            font-size: 10px;
+            color: $gray-600;
+        }
+    }
+}
+
+.el-breadcrumb-item {
+    $root: &;
+
+    &--page {
+
+    }
+}
+
+body {
+    .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li {
+        background: $white;
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+        background: $primary;
+    }
+
+    .el-button {
+        //- types {&--size} {-height} {-counter} ({-custom_name} {-i|-svg} {POSITION_ICON({-left|-right}))
+        // ==================================================
+        &--size-44-1 {
+            border-radius: 30px;
+            padding: 14px 20px;
+        }
+
+        &--size-26-i {
+            letter-spacing: 0.03em;
+            font-weight: 400;
+            padding: 6px 6px;
+            min-height: 26px;
+        }
+
+        &--size-32 {
+            font-weight: 600;
+            font-size: 10px;
+            padding: 10px 19px 10px 19px;
+            letter-spacing: 0.05em;
+            min-height: 32px;
+
+        }
+
+        //- styles {&--name_color} {-counter} ({-uppercase} {-custom_name})
+        // ==================================================
+        &--orange-1, &--orange-1-up {
+            background: $orange;
+            border-color: transparent;
+            font-weight: 600;
+            color: $white;
+            text-decoration: unset;
+
+            &-up {
+                text-transform: uppercase;
+            }
+        }
+
+        &--transparent-gray-3 {
+            background: transparent;
+            border-color: transparent;
+            color: $gray-700;
+
+            svg path {
+                fill: $gray-700;
+            }
+
+            &:hover {
+                background: transparent;
+                border-color: $red-200;
+                color: $red-200;
+
+                svg path {
+                    fill: $red-200;
+                }
+            }
+
+            &.is-active {
+                color: $white;
+                background-color: $primary;
+                border-color: $primary;
+                font-weight: 600;
+
+                svg path {
+                    fill: $white;
+                }
+            }
+        }
+
+
+    }
+
+    .el-form--label-top .el-form-item__label {
+        line-height: 30px;
+        padding: 0;
+    }
+}
+
+
+

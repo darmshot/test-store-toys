@@ -21,52 +21,53 @@
 </template>
 
 <script>
-import TestButton from "./TestButton"
+import TestButton from "./TestButton.vue"
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
+    name:"Test",
   components: {
-    TestModal,
     TestButton
   }
-}
+})
 </script>
 
 <style scoped lang="scss">
-@import './assets/sass/bootstrap';
-
-.custom-container {
-  $grid-gutter-width:10px;
-  .example-container {
-    max-width: 800px;
-    @include make-container();
-  }
-
-  .example-row {
-    @include make-row();
-  }
-
-  .example-content-main {
-    @include make-col-ready();
-
-    @include media-breakpoint-up(sm) {
-      @include make-col(6);
-    }
-    @include media-breakpoint-up(lg) {
-      @include make-col(8);
-    }
-  }
-
-  .example-content-secondary {
-    @include make-col-ready();
-
-    @include media-breakpoint-up(sm) {
-      @include make-col(6);
-    }
-    @include media-breakpoint-up(lg) {
-      @include make-col(4);
-    }
-  }
-}
+//@import './assets/sass/bootstrap';
+//
+//.custom-container {
+//  $grid-gutter-width:10px;
+//  .example-container {
+//    max-width: 800px;
+//    @include make-container();
+//  }
+//
+//  .example-row {
+//    @include make-row();
+//  }
+//
+//  .example-content-main {
+//    @include make-col-ready();
+//
+//    @include media-breakpoint-up(sm) {
+//      @include make-col(6);
+//    }
+//    @include media-breakpoint-up(lg) {
+//      @include make-col(8);
+//    }
+//  }
+//
+//  .example-content-secondary {
+//    @include make-col-ready();
+//
+//    @include media-breakpoint-up(sm) {
+//      @include make-col(6);
+//    }
+//    @include media-breakpoint-up(lg) {
+//      @include make-col(4);
+//    }
+//  }
+//}
 .test {
   padding: 30px 0;
 }

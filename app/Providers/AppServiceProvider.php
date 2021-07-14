@@ -4,6 +4,13 @@ namespace App\Providers;
 
 use App\Services\CurrencyService;
 use App\Services\DocumentService;
+use App\View\Components\ChooseAge;
+
+use App\View\Components\TopCategories;
+use App\View\Composers\DocumentVarsComposer;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,10 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         $this->app->singleton('document', DocumentService::class);
         $this->app->singleton('currency', CurrencyService::class);
 
 //        $this->overrideConfigValues();
+
 
     }
 
@@ -29,7 +38,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::componentNamespace('App\\View\\Components','app');
+        View::composer('app', DocumentVarsComposer::class);
+
     }
 
     protected function overrideConfigValues()
@@ -42,8 +53,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (config('backpack.base.show_powered_by')) {
             $config['backpack.base.show_powered_by'] = true;
-        }
-        else {
+        } else {
             $config['backpack.base.show_powered_by'] = false;
         }
 

@@ -26,7 +26,7 @@ class CatalogManufacturerCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\CatalogManufacturer::class);
+        CRUD::setModel(\App\Models\Admin\CatalogManufacturer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/catalog/manufacturers');
         CRUD::setEntityNameStrings('Производитель', 'Производители');
     }
@@ -39,7 +39,10 @@ class CatalogManufacturerCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+//        CRUD::setFromDb(); // columns
+
+        CRUD::addColumns(['title', 'description']); // add multiple columns, at the end of the stack
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

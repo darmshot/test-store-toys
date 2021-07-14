@@ -4,16 +4,21 @@
 
 
 import common from '@/scripts/store/modules/common';
-
+import catalog from'@/scripts/store/modules/catalog'
 
 import {createStore} from 'vuex'
+import pageRoute from "@/scripts/store/modules/page-route";
 
-const strict: boolean = true
+const debug = process.env.NODE_ENV !== 'production'
+
+const strict: boolean = debug
 
 export default createStore({
     strict,
     modules: {
-        common
+        common,
+        catalog,
+        pageRoute
     }
 })
 

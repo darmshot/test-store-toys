@@ -1,0 +1,75 @@
+.header-phone {
+    font-weight: 600;
+    font-size: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    height: 90px;
+
+    &__wrapper {
+        padding-right: 40px;
+        padding-left: 20px;
+
+    }
+
+    &__svg-label {
+        margin-right: 10px;
+
+        path {
+            fill: $orange;
+        }
+    }
+
+    &__link {
+        color: $gray-800;
+
+        svg path {
+            fill: $orange;
+        }
+
+        &:hover {
+            color: darken($orange, 5%);
+            transition: .3s;
+        }
+    }
+
+
+    @include media(lg) {
+        height: 70px;
+
+        &__wrapper {
+
+            &:before {
+                position: absolute;
+                height: 285px;
+                width: 285px;
+                content: "";
+                background: $gray-300;
+                z-index: -1;
+                top: -128px;
+                left: 0;
+                border-radius: 50%;
+            }
+        }
+        &__svg-label {
+            display: none;
+        }
+    }
+
+    @include media(sm) {
+        height: 55px;
+        &__wrapper {
+            padding-right: 35px;
+            padding-left: 15px;
+
+        }
+    }
+    @include media(xs){
+        &__wrapper {
+            padding-right: 30px;
+            padding-left: 10px;
+
+        }
+    }
+}

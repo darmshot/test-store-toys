@@ -7,18 +7,15 @@ use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
-    public function index($slug, $subs = null)
+    public function show($id, \App\Models\Page $page)
     {
-        $page = Page::findBySlug($slug);
-
-        if (!$page)
-        {
-            abort(404, 'Please go back to our <a href="'.url('').'">homepage</a>.');
+        // if use route try get by id
+        if($page->id == null){
+            $page = $page::findOrFail($id);
         }
 
-        $this->data['title'] = $page->title;
-        $this->data['page'] = $page->withFakes();
+        \Document::setTitle($page->meta_title);
 
-        return view('page.'.$page->template, $this->data);
+        return view('pages.'.$page->template, compact('page'));
     }
 }

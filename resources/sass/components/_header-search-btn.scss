@@ -1,0 +1,40 @@
+.header-search-btn {
+    height: 90px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
+    padding-left: 20px;
+    overflow: hidden;
+    border: none;
+    background: 0 0;
+    &:before {
+        position: absolute;
+        height: 285px;
+        width: 285px;
+        content: "";
+        background: $gray-400;
+        z-index: -1;
+        top: -128px;
+        left: 0;
+        border-radius: 50%;
+    }
+    &__icon {
+        font-size: 24px;
+        color: $orange;
+    }
+    @include media(lg){
+        height: 70px;
+    }
+
+    @include media(sm) {
+        height: 55px;
+        padding-right: 35px;
+        padding-left: 15px;
+    }
+
+    @include media(xs){
+        padding-right: 30px;
+        padding-left: 10px;
+    }
+}

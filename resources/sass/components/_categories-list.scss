@@ -1,0 +1,26 @@
+
+.categories-list {
+    margin-bottom: 0;
+    &__icon {
+        color: $orange;
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    li {
+        border-bottom: 1px solid $gray-200;
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    a {
+        display: block;
+        padding: 5px 10px;
+
+        text-decoration: none;
+        color: $gray-800;
+        font-size: 16px;
+        &:hover {
+            color: $orange;
+        }
+    }
+}

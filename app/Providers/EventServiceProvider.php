@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
-use App\Models\CatalogCategory;
-use App\Models\CatalogManufacturer;
-use App\Models\CatalogProduct;
-use App\Observers\CatalogCategoryObserver;
-use App\Observers\CatalogManufacturerObserver;
-use App\Observers\CatalogProductObserver;
+use App\Models\Admin\CatalogCategory;
+use App\Models\Admin\CatalogManufacturer;
+use App\Models\Admin\CatalogProduct;
+use App\Models\Admin\Page;
+use App\Observers\Admin\CatalogCategoryObserver;
+use App\Observers\Admin\CatalogManufacturerObserver;
+use App\Observers\Admin\CatalogProductObserver;
+use App\Observers\Admin\PageObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         CatalogCategory::observe(CatalogCategoryObserver::class);
         CatalogProduct::observe(CatalogProductObserver::class);
         CatalogManufacturer::observe(CatalogManufacturerObserver::class);
+        Page::observe(PageObserver::class);
     }
 }

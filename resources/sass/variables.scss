@@ -3,24 +3,24 @@
 //- bootstrap
 // ==================================================
 @import "node_modules/bootstrap/scss/functions";
-
 // Variables
 //
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
 // Color system
-
+$t: #E9E9E9;
 // scss-docs-start gray-color-variables
 $white:    #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
+$gray-100: #F3F3F3;
+$gray-150: #F5F5F5;
+$gray-200: #E8E8E8;
+$gray-300: #DFDFDF;
 $gray-400: #ced4da;
-$gray-500: #adb5bd;
+$gray-500: #A5A5A5;
 $gray-600: #6c757d;
 $gray-700: #495057;
-$gray-800: #343a40;
+$gray-800: #333333;
 $gray-900: #212529;
 $black:    #000;
 // scss-docs-end gray-color-variables
@@ -42,16 +42,16 @@ $grays: (
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue:    #0d6efd;
+$blue:    #08A2DE;
 $indigo:  #6610f2;
 $purple:  #6f42c1;
 $pink:    #d63384;
-$red:     #dc3545;
-$orange:  #fd7e14;
-$yellow:  #ffc107;
-$green:   #198754;
+$red:     #E00418;
+$orange:  #ff7e00;
+$yellow: #c9b60a;
+$green:   #99d511;
 $teal:    #20c997;
-$cyan:    #0dcaf0;
+$cyan:    #87E3DE;
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -73,7 +73,7 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary:       $blue;
+$primary:       $orange;
 $secondary:     $gray-600;
 $success:       $green;
 $info:          $cyan;
@@ -253,7 +253,7 @@ $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0));
 // You can add more entries to the $spacers map, should you need more variation.
 
 // scss-docs-start spacer-variables-maps
-$spacer: 10rem;
+$spacer: 10px;
 $spacers: (
     0: 0,
     1: $spacer / 4,
@@ -329,11 +329,11 @@ $grid-breakpoints: (
 //- Breakpoints
 // ==================================================
 $breakpoints: (
-    'sm': (max-width: map-get($grid-breakpoints, sm)),
-    'md': (max-width: map-get($grid-breakpoints, md)),
-    'lg': (max-width: map-get($grid-breakpoints, lg)),
-    'xl': (max-width: map-get($grid-breakpoints, xl)),
-    'xxl': (max-width: map-get($grid-breakpoints, xxl)),
+    'xs': (max-width: map-get($grid-breakpoints, sm)),
+    'sm': (max-width: map-get($grid-breakpoints, md)),
+    'md': (max-width: map-get($grid-breakpoints, lg)),
+    'lg': (max-width: map-get($grid-breakpoints, xl)),
+    'xl': (max-width: map-get($grid-breakpoints, xxl)),
     // '1700-{up,down}'
     // 'md-up'
 );
@@ -1488,7 +1488,7 @@ $pre-color:                         null;
 //- element-plus
 // ==================================================
 /* Element Chalk Variables */
-@import "./node_modules/element-plus/packages/theme-chalk/src/mixins/config";
+//@import "./node_modules/element-plus/packages/theme-chalk/src/mixins/config";
 
 // Special comment for theme configurator
 // type|skipAutoTranslation|Category|Order
@@ -1506,7 +1506,7 @@ $--color-transition-base: color .2s cubic-bezier(.645, .045, .355, 1);
 /* Color
 -------------------------- */
 /// color|1|Brand Color|0
-$--color-primary: red;
+$--color-primary: $orange;
 /// color|1|Background Color|4
 $--color-white: #FFFFFF;
 /// color|1|Background Color|4
@@ -1953,7 +1953,7 @@ $--input-disabled-placeholder-color: $--color-text-placeholder;
 /// fontSize||Font|1
 $--input-font-size: $--font-size-base;
 /// height||Other|4
-$--input-height: 40px;
+$--input-height: 44px;
 /// fontSize||Font|1
 $--input-medium-font-size: 14px;
 /// height||Other|4
@@ -2524,3 +2524,67 @@ $--breakpoints-spec: (
 );
 
 // ==================================================
+
+
+//- lightgallery.js
+// ==================================================
+$backdrop-opacity: 1;
+$lg-toolbar-bg: rgba(0, 0, 0, 0.45);
+$lg-border-radius-base: 2px;
+$lg-theme-highlight: $orange;
+$lg-theme: #0D0A0A;
+
+// basic icon colours
+$lg-icon-bg: rgba(0, 0, 0, 0.45);
+$lg-icon-color: #999;
+$lg-icon-hover-color: #FFF;
+
+// counter
+$lg-counter-color: #e6e6e6;
+$lg-counter-font-size: 16px;
+
+// Next prev icons
+$lg-next-prev-bg: $lg-icon-bg;
+$lg-next-prev-color: $lg-icon-color;
+$lg-next-prev-hover-color: $lg-icon-hover-color;
+
+// toolbar icons
+$lg-toolbar-icon-color: $lg-icon-color;
+$lg-toolbar-icon-hover-color: $lg-icon-hover-color;
+
+// autoplay progress bar
+$lg-progress-bar-bg: #333;
+$lg-progress-bar-active-bg: $lg-theme-highlight;
+$lg-progress-bar-height: 5px;
+
+// paths
+$lg-path-fonts: '/fonts';
+$lg-path-images: '/img';
+
+// Zoom plugin
+$zoom-transition-duration: 0.3s;
+
+// Sub html - titile
+$lg-sub-html-bg: rgba(0, 0, 0, 0.45);
+$lg-sub-html-color: #EEE;
+
+// thumbnail toggle button
+$lg-thumb-toggle-bg: #0D0A0A;
+$lg-thumb-toggle-color: $lg-icon-color;
+$lg-thumb-toggle-hover-color: $lg-icon-hover-color;
+$lg-thumb-bg: #0D0A0A;
+
+// z-index
+$zindex-outer: 1050;
+$zindex-progressbar: 1083;
+$zindex-controls: 1080;
+$zindex-toolbar: 1082;
+$zindex-subhtml: 1080;
+$zindex-thumbnail: 1080;
+$zindex-pager: 1080;
+$zindex-playbutton: 1080;
+$zindex-item: 1060;
+$zindex-backdrop: 1040;
+
+// ==================================================
+

@@ -1,0 +1,16 @@
+.top-categories {
+    &__row {
+        @include make-row()
+    }
+    &__col {
+        @include make-col-ready('10px');
+        @include make-col(2 ,10)
+    }
+
+    @include media(md){
+        &__col {
+            @include make-col(10 ,10)
+
+        }
+    }
+}

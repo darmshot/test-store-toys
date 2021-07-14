@@ -1,7 +1,8 @@
 @extends('app')
+@section('body_id','catalog-category')
 @section('body')
-<div id="catalog-category">
-<h1>this is Category</h1>
-    <test-catalog></test-catalog>
-</div>
+    <div class="container">
+        <h1 class="page-title">{{$category->title}}</h1>
+        <catalog-product v-loading="$store.state.catalog.loadingPage"></catalog-product>
+    </div>
 @endsection

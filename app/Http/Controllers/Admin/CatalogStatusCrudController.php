@@ -26,7 +26,7 @@ class CatalogStatusCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\CatalogStatus::class);
+        CRUD::setModel(\App\Models\Admin\CatalogStatus::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/catalog/statuses');
         CRUD::setEntityNameStrings('Статус', 'Статусы');
     }

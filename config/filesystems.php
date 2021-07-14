@@ -42,6 +42,19 @@ return [
             'visibility' => 'public',
         ],
 
+        'cache' => [
+            'driver' => 'local',
+            'root' => public_path('cache'),
+            'url' => env('APP_URL').'/cache',
+            'visibility' => 'public',
+        ],
+
+        'uploads' => [ // used for Backpack/CRUD (in elFinder)
+            'driver' => 'local',
+            'root'   => public_path('uploads'),
+            'url' => env('APP_URL').'/uploads'
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -67,6 +80,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+//        public_path('cache') => storage_path('app/cache'),
     ],
 
     'storage' => [

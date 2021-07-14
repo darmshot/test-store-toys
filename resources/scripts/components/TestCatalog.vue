@@ -9,6 +9,7 @@ import {mapState} from "vuex";
 import {defineComponent} from "vue";
 
 export default defineComponent({
+    name:"TestCatalog",
     computed: {
         ...mapState('catalog', [
             'storeName'

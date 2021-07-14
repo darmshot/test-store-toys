@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\PageManager\app\Models\Page;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MenuItem extends Model
 {
+    use HasFactory;
     use CrudTrait;
 
     protected $table = 'menu_items';
@@ -27,12 +29,11 @@ class MenuItem extends Model
     {
         return $this->belongsTo(Page::class, 'page_id');
     }
-
     /**
      * Get all menu items, in a hierarchical collection.
      * Only supports 2 levels of indentation.
      */
-    public static function getTree()
+    public static function getTree($rootName)
     {
         $menu = self::orderBy('lft')->get();
 

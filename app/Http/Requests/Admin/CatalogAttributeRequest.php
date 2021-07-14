@@ -24,11 +24,12 @@ class CatalogAttributeRequest extends FormRequest
      */
     public function rules()
     {
-//        todo here continue
+        $id = $this->get('id');
+
         return [
 //             'name' => 'required|min:5|max:255'
-             'title' => 'required|min:5|max:60',
-//             'keyword' => 'required|min:5|max:60'
+             'title' => 'required|min:2|max:60',
+             'keyword' => 'unique:catalog_attributes,keyword'.($id ? ','.$id : '')
         ];
     }
 

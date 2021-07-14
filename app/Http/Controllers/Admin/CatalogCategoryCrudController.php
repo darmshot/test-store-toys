@@ -18,6 +18,9 @@ class CatalogCategoryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -26,9 +29,12 @@ class CatalogCategoryCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\CatalogCategory::class);
+        CRUD::setModel(\App\Models\Admin\CatalogCategory::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/catalog/categories');
         CRUD::setEntityNameStrings('категорию', 'Категории');
+
+        $this->crud->enableReorder('title', 3);
+
     }
 
     /**
@@ -41,6 +47,7 @@ class CatalogCategoryCrudController extends CrudController
     {
         CRUD::setFromDb(); // columns
 
+        $this->crud->orderBy('lft');
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -113,12 +120,12 @@ class CatalogCategoryCrudController extends CrudController
 
         CRUD::addField([
             'label'     => 'Родитель', // Table column heading
-            'type'      => 'select2',
+            'type'      => 'select2_nested',
             'attribute' => 'title', // foreign key attribute that is shown to user
             'name'      => 'parent_id', // the method that defines the relationship in your Model
 //            'pivot'     => true,
             'entity'    => 'parent', // the method that defines the relationship in your Model
-            'model'     => 'App\Models\CatalogCategory', // foreign key model
+            'model'     => 'App\Models\Admin\CatalogCategory', // foreign key model
             'options'   => (function ($query) {
                 return $query->orderBy('title', 'ASC')->get();
             }),

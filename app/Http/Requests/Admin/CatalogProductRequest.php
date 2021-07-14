@@ -24,12 +24,17 @@ class CatalogProductRequest extends FormRequest
      */
     public function rules()
     {
-        $id = \Request::get('id');
+        $id           = \Request::get('id');
+        $price        = \Request::get('price');
+        $priceSpecial = \Request::get('price_special');
 
         return [
             // 'name' => 'required|min:5|max:255'
-            'title' => 'required|min:2|max:60',
-            'slug' => 'unique:catalog_products,slug'.($id ? ','.$id : '').'|unique:aliases,model_id'.($id ? ','.$id : ''),
+            'title'         => 'required|min:2|max:60',
+            'sku'           => 'required|min:2|max:60',
+            'slug'          => 'unique:catalog_products,slug' . ($id ? ',' . $id : '') . '|unique:aliases,model_id' . ($id ? ',' . $id : ''),
+            'price'         => ($price) ? 'regex:/^\d{1,15}(\.\d{1,2})?$/' : '',
+            'price_special' => ($priceSpecial) ? 'regex:/^\d{1,15}(\.\d{1,2})?$/' : ''
         ];
     }
 
