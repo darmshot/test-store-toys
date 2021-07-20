@@ -7,7 +7,7 @@ In project has been used next packages:
 * Intervention Image - work with images
 * Algolia - powerful full-text search
 ### Frontend part
-* Vite - package manage
+* Vite - package manager
 * Bootstrap 5
 * Element Plus - vue 3 ui components
 * lightgallery.js - gallery
