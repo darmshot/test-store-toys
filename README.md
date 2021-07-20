@@ -1,3 +1,32 @@
+This is example the simple store powered by laravel. 
+
+In project has been used next packages:
+* Backpack - crud admin panel builder 
+* darryldecode/cart
+* innocenzi/laravel-vite - integration with Vite (package manager like webpack)
+* Intervention Image - work with images
+* Algolia - powerful full-text search
+### Frontend part
+* Vite - package manage
+* Bootstrap 5
+* Element Plus - vue 3 ui components
+* lightgallery.js - gallery
+* Mmenu light - mobile menu
+* Swiper Vue.js - carousel
+* Vue.js - js framework
+* Vuex - js store
+
+
+
+
+http://toys.indigital.tk/
+
+####Admin panel:  
+http://toys.indigital.tk/admin   
+**Login:** darmshot@gmail.com  
+**Password:** ALioaz7CHT7eEw
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
