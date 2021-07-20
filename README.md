@@ -21,7 +21,7 @@ In project has been used next packages:
 
 http://toys.indigital.tk/
 
-####Admin panel:  
+#### Admin panel:  
 http://toys.indigital.tk/admin   
 **Login:** darmshot@gmail.com  
 **Password:** ALioaz7CHT7eEw
