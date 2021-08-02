@@ -48,8 +48,8 @@ Route::get('test/mail', [\App\Http\Controllers\TestController::class, 'mail']);
 Route::get('test/nested', [\App\Http\Controllers\TestController::class, 'nested']);
 
 
-Route::get('{alias}/{subs?}', ['uses' => '\App\Http\Controllers\AliasController'])
-     ->where(['alias' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*']);
+//Route::get('{alias}/{subs?}', ['uses' => '\App\Http\Controllers\AliasController'])
+//     ->where(['alias' => '^(((?=(?!admin))(?=(?!\/)).))*$', 'subs' => '.*']);
 
 
 //Route::get('{page}/{subs?}', ['uses' => '\App\Http\Controllers\PageController@index'])

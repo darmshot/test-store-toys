@@ -28,6 +28,8 @@
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "mll-lab/laravel-graphql-playground": "^2.5",
+        "nuwave/lighthouse": "^5.16",
         "predis/predis": "^1.1",
         "symfony/dom-crawler": "^5.2"
     },

@@ -4,6 +4,11 @@
 /public/storage
 /storage/*.key
 /vendor
+/.idea
+/public/uploads/
+/public/packages/
+/public/cache/
+/_lighthouse_ide_helper.php
 .env
 .env.backup
 .phpunit.result.cache
@@ -12,7 +17,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/public/uploads/
-/public/packages/
-/public/cache/
+.phpstorm.meta.php
